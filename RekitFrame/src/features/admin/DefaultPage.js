@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 
+import Layout from './Layout'
+
 export class DefaultPage extends Component {
   static propTypes = {
     admin: PropTypes.object.isRequired,
@@ -11,10 +13,7 @@ export class DefaultPage extends Component {
   };
 
   render() {
-    return (
-      <div className="admin-default-page">
-        Page Content: admin/DefaultPage
-      </div>
+    return (<Layout />
     );
   }
 }

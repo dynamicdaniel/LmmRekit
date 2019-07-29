@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Icon, Layout } from 'antd'
 import { config } from '../../utils/config'
 import SiderMenu from './Menu'
-import styles from './Sider.less'
 
 class Sider extends PureComponent {
   render() {

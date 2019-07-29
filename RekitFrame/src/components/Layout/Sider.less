@@ -1,9 +1,5 @@
 @import '../../styles/mixins';
 
-.common-sider {
-
-}
-
 .sider {
   box-shadow: fade(@primary-color, 10%) 0 0 28px 0;
   z-index: 10;
@@ -45,10 +41,10 @@
       margin-bottom: 0;
       .text-gradient();
 
-      // :local {
-      //   animation: fadeRightIn 300ms @ease-in-out;
-      //   animation-fill-mode: both;
-      // }
+      :local {
+        animation: fadeRightIn 300ms @ease-in-out;
+        animation-fill-mode: both;
+      }
     }
   }
 }
