@@ -4,11 +4,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 
-import { Icon, Switch, Layout } from 'antd'
+import {
+  pathMatchRegexp,
+} from '../../utils'
+
+import { BackTop, Layout } from 'antd'
 import { MyLayout } from '../../components'
 
 const { Content } = Layout
-const { Sider } = MyLayout
+const { Sider,Header,Bread } = MyLayout
 
 export class AdminLayout extends Component {
   static propTypes = {
@@ -16,34 +20,30 @@ export class AdminLayout extends Component {
     actions: PropTypes.object.isRequired,
   };
 
+  onCollapseChange = () => {
+     this.props.actions.collapseChange();
+  }
+
   render() {
 
-    const collapsed = false;
-
-    const routeList = [
-      {
-        id: '1',
-        icon: 'laptop',
-        name: '仪表盘',
-        router: '/dashboard',
-      },
-    ];
-    
+    const {collapsed,routeList,location}  = this.props;
+    const fixed = true;
     const menus = routeList.filter(_ => _.menuParentId !== '-1')
+    const currentRoute = routeList.find(
+      _ => _.route && pathMatchRegexp(_.route, location.pathname)
+    )
 
     const notifications = [];
 
     const headerProps = {
       menus,
+      fixed,
       collapsed,
       notifications,
       onCollapseChange:this.onCollapseChange,
       avatar: "",
       username: "test",
-      // fixed: config.fixedHeader,
-      // onAllNotificationsRead() {
-      //   dispatch({ type: 'app/allNotificationsRead' })
-      // },
+      
       // onSignOut() {
       //   dispatch({ type: 'app/signOut' })
       // },
@@ -53,7 +53,7 @@ export class AdminLayout extends Component {
       theme:"light",
       menus,
       collapsed,
-      // onCollapseChange,
+      location,
     }
 
     return (
@@ -61,10 +61,22 @@ export class AdminLayout extends Component {
         <Fragment>
         <Layout>
         <Sider {...siderProps} />
-        <div className="page-container">
-          <Content className="page-content">
+        <div 
+          className="container" 
+          style={{ paddingTop: fixed ? 72 : 0 }}
+          id="primaryLayout">
+          <Header {...headerProps} />
+          <Content className="content">
+             <Bread routeList={routeList} location={location} />
             {this.props.children}
           </Content>
+          <BackTop
+              className="backTop"
+              target={() => document.querySelector('#primaryLayout')}
+            />
+           <div className="footer">
+                copy right @2019
+           </div> 
         </div>
        </Layout>
       </Fragment>
@@ -77,6 +89,8 @@ export class AdminLayout extends Component {
 function mapStateToProps(state) {
   return {
     admin: state.admin,
+    collapsed: state.admin.collapsed,
+    routeList: state.admin.routeList,
   };
 }
 

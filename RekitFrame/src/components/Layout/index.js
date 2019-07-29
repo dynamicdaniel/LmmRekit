@@ -1,6 +1,6 @@
-// import Header from './Header'
+import Header from './Header'
 // import Menu from './Menu'
-// import Bread from './Bread'
+import Bread from './Bread'
 import Sider from './Sider'
 
-export { Sider }
+export { Sider,Header,Bread }

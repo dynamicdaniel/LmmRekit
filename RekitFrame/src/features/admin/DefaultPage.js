@@ -13,7 +13,7 @@ export class DefaultPage extends Component {
   };
 
   render() {
-    return (<Layout />
+    return (<div>ssss</div>
     );
   }
 }

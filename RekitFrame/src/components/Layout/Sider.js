@@ -4,16 +4,15 @@ import { Icon, Layout } from 'antd'
 import { config } from '../../utils/config'
 import ScrollBar from '../ScrollBar'
 import SiderMenu from './Menu'
+import './Sider.less'
 
 class Sider extends PureComponent {
   render() {
     const {
       menus,
       theme,
-      isMobile,
       collapsed,
-      onThemeChange,
-      onCollapseChange,
+      location,
     } = this.props
 
     return (
@@ -24,7 +23,6 @@ class Sider extends PureComponent {
         trigger={null}
         collapsible
         collapsed={collapsed}
-        onBreakpoint={isMobile ? null : onCollapseChange}
         className="sider"
       >
         <div className="brand">
@@ -44,9 +42,8 @@ class Sider extends PureComponent {
             <SiderMenu
               menus={menus}
               theme={theme}
-              isMobile={isMobile}
+              location={location}
               collapsed={collapsed}
-              onCollapseChange={onCollapseChange}
             />
           </ScrollBar>
         </div>
@@ -58,10 +55,7 @@ class Sider extends PureComponent {
 Sider.propTypes = {
   menus: PropTypes.array,
   theme: PropTypes.string,
-  isMobile: PropTypes.bool,
   collapsed: PropTypes.bool,
-  onThemeChange: PropTypes.func,
-  onCollapseChange: PropTypes.func,
 }
 
 export default Sider

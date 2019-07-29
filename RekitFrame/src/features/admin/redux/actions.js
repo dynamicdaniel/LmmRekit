@@ -1,0 +1,1 @@
+export { collapseChange } from './collapseChange';

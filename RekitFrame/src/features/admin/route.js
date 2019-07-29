@@ -3,11 +3,13 @@
 
 import {
   DefaultPage,
+  Layout
 } from './';
 
 export default {
   path: 'admin',
   name: 'Admin',
+  component: Layout,
   childRoutes: [
     { path: 'default-page', name: 'Default page', component: DefaultPage, isIndex: true },
   ],

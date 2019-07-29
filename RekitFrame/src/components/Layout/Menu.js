@@ -4,6 +4,7 @@ import { Menu, Icon } from 'antd'
 import {
   arrayToTree,
   queryAncestors,
+  pathMatchRegexp,
 } from '../../utils'
 import store from 'store'
 
@@ -42,10 +43,10 @@ class SiderMenu extends PureComponent {
           <SubMenu
             key={item.id}
             title={
-              <Fragment>
-                {item.icon && <Icon type={item.icon} />}
+              <span>
+                <Icon type={item.icon} />
                 <span>{item.name}</span>
-              </Fragment>
+              </span>
             }
           >
             {this.generateMenus(item.children)}
@@ -54,10 +55,8 @@ class SiderMenu extends PureComponent {
       }
       return (
         <Menu.Item key={item.id}>
-          <div>
-            {item.icon && <Icon type={item.icon} />}
-            <Link to={item.route || '#'}>{item.name}</Link>
-          </div>
+            <Icon type={item.icon} />
+            <span>{item.name}</span>
         </Menu.Item>
       )
     })
@@ -68,8 +67,7 @@ class SiderMenu extends PureComponent {
       collapsed,
       theme,
       menus,
-      isMobile,
-      onCollapseChange,
+      location,
     } = this.props
 
     // Generating tree-structured data for menu content.
@@ -77,7 +75,7 @@ class SiderMenu extends PureComponent {
 
     // Find a menu that matches the pathname.
     const currentMenu = menus.find(
-      _ => _.route 
+      _ => _.route && pathMatchRegexp(_.route, location.pathname)
     )
 
     // Find the key that should be selected according to the current menu.
@@ -95,15 +93,9 @@ class SiderMenu extends PureComponent {
       <Menu
         mode="inline"
         theme={theme}
+        collapsed={collapsed}
         onOpenChange={this.onOpenChange}
         selectedKeys={selectedKeys}
-        onClick={
-          isMobile
-            ? () => {
-                onCollapseChange(true)
-              }
-            : undefined
-        }
         {...menuProps}
       >
         {this.generateMenus(menuTree)}
@@ -116,7 +108,6 @@ SiderMenu.propTypes = {
   menus: PropTypes.array,
   theme: PropTypes.string,
   isMobile: PropTypes.bool,
-  onCollapseChange: PropTypes.func,
 }
 
 export default SiderMenu
