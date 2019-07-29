@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Icon, Layout } from 'antd'
 import { config } from '../../utils/config'
+import ScrollBar from '../ScrollBar'
 import SiderMenu from './Menu'
 
 class Sider extends PureComponent {
@@ -34,12 +35,12 @@ class Sider extends PureComponent {
         </div>
 
         <div className="menuContainer">
-          {/* <ScrollBar
+          <ScrollBar
             options={{
               // Disabled horizontal scrolling, https://github.com/utatti/perfect-scrollbar#options
               suppressScrollX: true,
             }}
-          > */}
+          >
             <SiderMenu
               menus={menus}
               theme={theme}
@@ -47,7 +48,7 @@ class Sider extends PureComponent {
               collapsed={collapsed}
               onCollapseChange={onCollapseChange}
             />
-          {/* </ScrollBar> */}
+          </ScrollBar>
         </div>
       </Layout.Sider>
     )
