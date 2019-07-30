@@ -1,9 +1,6 @@
 import axios from 'axios'
 import { cloneDeep, isEmpty } from 'lodash'
-import pathToRegexp from 'path-to-regexp'
 import { message } from 'antd'
-import { CANCEL_REQUEST_MESSAGE } from 'utils/constant'
-import qs from 'qs'
 
 const { CancelToken } = axios
 window.cancelRequest = new Map()
@@ -11,27 +8,6 @@ window.cancelRequest = new Map()
 export default function request(options) {
   let { data, url, method = 'get' } = options
   const cloneData = cloneDeep(data)
-
-  try {
-    let domain = ''
-    const urlMatch = url.match(/[a-zA-z]+:\/\/[^/]*/)
-    if (urlMatch) {
-      ;[domain] = urlMatch
-      url = url.slice(domain.length)
-    }
-
-    const match = pathToRegexp.parse(url)
-    url = pathToRegexp.compile(url)(data)
-
-    for (const item of match) {
-      if (item instanceof Object && item.name in cloneData) {
-        delete cloneData[item.name]
-      }
-    }
-    url = domain + url
-  } catch (e) {
-    message.error(e.message)
-  }
 
   options.url = url
   options.params = cloneData
@@ -44,7 +20,7 @@ export default function request(options) {
 
   return axios(options)
     .then(response => {
-      const { statusText, status, data } = response
+      const { success, code, data,message } = response
 
       let result = {}
       if (typeof data === 'object') {
@@ -58,19 +34,13 @@ export default function request(options) {
 
       return Promise.resolve({
         success: true,
-        message: statusText,
-        statusCode: status,
+        message: message,
+        code: code,
         ...result,
       })
     })
     .catch(error => {
       const { response, message } = error
-
-      if (String(message) === CANCEL_REQUEST_MESSAGE) {
-        return {
-          success: false,
-        }
-      }
 
       let msg
       let statusCode

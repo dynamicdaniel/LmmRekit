@@ -20,7 +20,10 @@ class DefaultPage extends Component {
       if (errors) {
         return
       }
-      dispatch({ type: 'login/login', payload: values })
+
+      this.props.actions.login();
+
+      // dispatch({ type: 'login/login', payload: values })
     })
   }
 
