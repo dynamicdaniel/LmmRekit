@@ -3,15 +3,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import history from './common/history';
+
+let isLogin;
+let userRole;
 
 function renderRouteConfigV3(routes, contextPath) {
   // Resolve route config object in React Router v3.
   const children = []; // children component list
 
   const renderRoute = (item, routeContextPath) => {
+
+    if (item.role == "admin" && userRole != "admin"){
+       item = {
+         ...item,
+         component: () => <Redirect to="/admin/403" />,
+         children: [],
+       }
+    }
+
     let newContextPath;
     if (/^\//.test(item.path)) {
       newContextPath = item.path;
@@ -46,7 +58,15 @@ export default class Root extends React.Component {
     store: PropTypes.object.isRequired,
     routeConfig: PropTypes.array.isRequired,
   };
+
+  componentDidMount(){
+    this.props.store.subscribe(() => {
+      this.forceUpdate();
+    });
+  }
+  
   render() {
+    userRole =  this.props.store.getState().login.userRole;
     const children = renderRouteConfigV3(this.props.routeConfig, '/');
     return (
       <Provider store={this.props.store}>

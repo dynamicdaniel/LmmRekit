@@ -8,9 +8,11 @@
 
 import initialState from './initialState';
 import { reducer as loginReducer } from './login';
+import { reducer as changeRoleReducer } from './changeRole';
 
 const reducers = [
   loginReducer,
+  changeRoleReducer,
 ];
 
 export default function reducer(state = initialState, action) {
