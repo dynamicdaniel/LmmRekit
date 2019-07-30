@@ -79,6 +79,7 @@
     "plugins": [],
     "css": "less"
   },
+  "proxy": "http://localhost:8082/",
   "resolutions": {
     "css-animation": "1.5.0"
   },

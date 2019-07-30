@@ -12,14 +12,14 @@ const initialState = {
         id: '1',
         icon: 'laptop',
         name: '首页',
-        route: '/dashboard',
+        route: '/admin',
       },
       {
         id: '2',
         breadcrumbParentId: '1',
         icon: 'shop',
-        name: '商户管理',
-        route: '/admin',
+        name: '代理商管理',
+        route: '/admin/agent/list',
       },
       {
         id: '3',
@@ -43,7 +43,11 @@ const initialState = {
         icon: 'laptop',
         name: '积分列表',
         route: '/admin3',
-      },]
+      },],
+  getAgentListPending: false,
+  getAgentListError: null,
+  agentList:[],
+  selectedRowKeys:[],
 };
 
 export default initialState;

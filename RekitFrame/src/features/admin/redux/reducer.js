@@ -8,9 +8,11 @@
 
 import initialState from './initialState';
 import { reducer as collapseChangeReducer } from './collapseChange';
+import { reducer as getAgentListReducer } from './getAgentList';
 
 const reducers = [
   collapseChangeReducer,
+  getAgentListReducer,
 ];
 
 export default function reducer(state = initialState, action) {
