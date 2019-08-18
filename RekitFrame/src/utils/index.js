@@ -56,6 +56,51 @@ export function arrayToTree(
 }
 
 /**
+ * Query which layout should be used for the current path based on the configuration.
+ * @param   {layouts}     layouts   Layout configuration.
+ * @param   {pathname}    pathname  Path name to be queried.
+ * @return  {string}   Return frist object when query success.
+ */
+export function queryLayout(layouts, pathname) {
+  let result = 'public'
+
+  const isMatch = regepx => {
+    return regepx instanceof RegExp
+      ? regepx.test(pathname)
+      : pathMatchRegexp(regepx, pathname)
+  }
+
+  for (const item of layouts) {
+    let include = false
+    let exclude = false
+    if (item.include) {
+      for (const regepx of item.include) {
+        if (isMatch(regepx)) {
+          include = true
+          break
+        }
+      }
+    }
+
+    if (include && item.exclude) {
+      for (const regepx of item.exclude) {
+        if (isMatch(regepx)) {
+          exclude = true
+          break
+        }
+      }
+    }
+
+    if (include && !exclude) {
+      result = item.name
+      break
+    }
+  }
+
+  return result
+}
+
+/**
  * In an array object, traverse all parent IDs based on the value of an object.
  * @param   {array}     array     The Array need to Converted.
  * @param   {string}    current   Specify the value of the object that needs to be queried.

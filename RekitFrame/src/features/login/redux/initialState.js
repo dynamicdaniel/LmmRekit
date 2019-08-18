@@ -8,7 +8,7 @@
 const initialState = {
   loginPending: false,
   loginError: null,
-  userRole:"user"
+  userRole:"admin"
 };
 
 export default initialState;

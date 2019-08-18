@@ -7,10 +7,11 @@ import {
   pathMatchRegexp,
 } from '../../utils'
 import store from 'store'
+import './Menu.less'
 
 import { Link } from 'react-router-dom';
 
-const { SubMenu } = Menu
+const { SubMenu } = Menu;
 
 class SiderMenu extends PureComponent {
   state = {
@@ -45,7 +46,7 @@ class SiderMenu extends PureComponent {
             title={
               <span>
                 <Icon type={item.icon} />
-                <span>{item.name}</span>
+                <span>{item.name} </span>
               </span>
             }
           >
@@ -55,8 +56,10 @@ class SiderMenu extends PureComponent {
       }
       return (
         <Menu.Item key={item.id}>
-            <Icon type={item.icon} />
-            <span>{item.name}</span>
+            <Link to={item.route}>
+              <Icon type={item.icon} />
+              <span>{item.name}</span>
+            </Link>
         </Menu.Item>
       )
     })

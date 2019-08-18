@@ -23,21 +23,21 @@ export default function request(options) {
       const { success, code, data,message } = response
 
       let result = {}
-      if (typeof data === 'object') {
-        result = data
-        if (Array.isArray(data)) {
-          result.list = data
-        }
-      } else {
-        result.data = data
-      }
+      result = data;
 
-      return Promise.resolve({
-        success: true,
-        message: message,
-        code: code,
-        ...result,
-      })
+      console.log(result);
+      
+      if (result.success) {
+         return Promise.resolve(result.data)
+      }else{
+        message.error(`[${result.code}]${result.message}`)
+        return Promise.reject({
+          success: false,
+          data:{},
+          code:result.code,
+          message: result.message,
+        })
+      }
     })
     .catch(error => {
       const { response, message } = error
@@ -54,10 +54,11 @@ export default function request(options) {
         msg = error.message || 'Network Error'
       }
 
+      message.error(`${msg}`)
       /* eslint-disable */
       return Promise.reject({
         success: false,
-        statusCode,
+        code:statusCode,
         message: msg,
       })
     })

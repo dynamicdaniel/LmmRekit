@@ -7,6 +7,40 @@
 // NOTE: initialState constant is necessary so that Rekit could auto add initial state when creating async actions.
 
 const initialState = {
+  collapsed:false,
+  loading:false,
+  routeList : [
+      {
+        id: '1',
+        icon: 'laptop',
+        name: '首页',
+        route: '/admin',
+      },
+      {
+        id: '2',
+        breadcrumbParentId: '1',
+        icon: 'shop',
+        name: '店铺管理',
+        route: '/',
+      },
+      {
+        id: '3',
+        menuParentId: '2',
+        breadcrumbParentId: '1',
+        icon: 'shop',
+        name: '店铺列表',
+        route: '/demo/shop',
+      },
+      {
+        id: '3',
+        menuParentId: '2',
+        breadcrumbParentId: '1',
+        icon: 'shop',
+        name: '店铺新增',
+        route: '/demo/shop/add',
+        show:false,
+      },
+    ],
 };
 
 export default initialState;

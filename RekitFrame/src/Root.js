@@ -19,7 +19,7 @@ function renderRouteConfigV3(routes, contextPath) {
     if (item.role == "admin" && userRole != "admin"){
        item = {
          ...item,
-         component: () => <Redirect to="/admin/403" />,
+         component: () => <Redirect to="/error/403" />,
          children: [],
        }
     }
