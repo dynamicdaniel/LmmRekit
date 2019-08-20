@@ -16,12 +16,13 @@ export class ShopListPage extends Component {
   };
 
   componentDidMount(){
-     this.fetchList();
+     const { demo } = this.props
+     const { page } = demo
+     this.fetchList(page);
   }
 
-  fetchList = (name) => {
+  fetchList = (page,name) => {
     const {getList} = this.props.actions;
-    const page = this.props.match.params.page || 1;
     getList(page,name);
   }
 
@@ -34,14 +35,18 @@ export class ShopListPage extends Component {
 
   get listProps() {
     const { demo,actions } = this.props
-    const { getListPending,total } = demo
+    const { getListPending,total,page } = demo
     const { deleteShop,chooseCurrentShop,shopModalChange } = actions;
 
     return {
       dataSource: this.getDataSource(),
       loading: getListPending,
       pagination:{
-        total:total
+        total:total,
+        current:page,
+        onChange : (page) => {
+          this.fetchList(page)
+        }
       },
       onDeleteItem: id => {
         deleteShop(id).then((data) => {
@@ -67,8 +72,8 @@ export class ShopListPage extends Component {
       onFilterChange: value => {
          this.fetchList(value.name)
       },
-      onAdd() {
-        shopModalChange(true,"create");
+      onAdd : () =>  {
+        shopModalChange(true,'create')
       },
     }
   }
