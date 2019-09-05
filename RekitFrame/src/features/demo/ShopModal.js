@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { Form, Input, InputNumber, Radio, Modal, Cascader } from 'antd'
-import { FormBuilder } from '../../components'
+import { FormBuilder,Upload } from '../../components'
+
+const { UploadFile } = Upload;
+
 
 const FormItem = Form.Item
 
@@ -71,7 +74,18 @@ class FormModal extends Component {
           widget: Input,
           required: true
         },
-        
+        {
+          key: "img",
+          label: "上传图片",
+          initialValue: [
+            {
+              name:'0.png',
+              url:'1111',
+            }
+          ],
+          widget: UploadFile,
+          required: true
+        },
       ]
     };
 
