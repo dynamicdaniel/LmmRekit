@@ -32,9 +32,9 @@ const initialState = {
         route: '/demo/shop',
       },
       {
-        id: '3',
+        id: '4',
         menuParentId: '2',
-        breadcrumbParentId: '1',
+        breadcrumbParentId: '3',
         icon: 'shop',
         name: '店铺新增',
         route: '/demo/shop/add',
