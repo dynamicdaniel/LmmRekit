@@ -29,4 +29,6 @@ npm run build
 * [列表开发](doc/列表开发.md)
 * [搜索](doc/搜索.md)
 * [新增修改](doc/新增修改.md)
+* [form组件使用](doc/form.md)
+* [curd组件使用](doc/curd.md)
 
