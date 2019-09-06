@@ -34,7 +34,8 @@ class FormModal extends Component {
         ...getFieldsValue(),
         id: item.id,
       }
-      onOk(data)
+      console.log(data);
+      // onOk(data)
     })
   }
 
@@ -84,6 +85,11 @@ class FormModal extends Component {
             }
           ],
           widget: UploadFile,
+          widgetProps: {
+            action:'/api/qiniu',
+            single: true,
+            listType: 'picture'
+          },
           required: true
         },
       ]
